@@ -1,0 +1,188 @@
+//
+//  InstructionSet.swift
+//  Swifty502
+//
+//  Created by Chris Gulley on 11/25/20.
+//
+
+struct InstructionSet {
+    static func addInstructions(processor: Processor) {
+        func add(_ i: Instruction.Type) {
+            processor.addInstruction(i)
+        }
+
+        add(LDA.Immediate.self)
+        add(LDA.ZeroPage.self)
+        add(LDA.ZeroPageX.self)
+        add(LDA.Absolute.self)
+        add(LDA.AbsoluteX.self)
+        add(LDA.AbsoluteY.self)
+        add(LDA.IndirectX.self)
+        add(LDA.IndirectY.self)
+        
+        add(LDX.Immediate.self)
+        add(LDX.ZeroPage.self)
+        add(LDX.ZeroPageY.self)
+        add(LDX.Absolute.self)
+        add(LDX.AbsoluteY.self)
+        
+        add(LDY.Immediate.self)
+        add(LDY.ZeroPage.self)
+        add(LDY.ZeroPageX.self)
+        add(LDY.Absolute.self)
+        add(LDY.AbsoluteX.self)
+        
+        add(STA.ZeroPage.self)
+        add(STA.ZeroPageX.self)
+        add(STA.Absolute.self)
+        add(STA.AbsoluteX.self)
+        add(STA.AbsoluteY.self)
+        add(STA.IndirectX.self)
+        add(STA.IndirectY.self)
+        
+        add(STX.ZeroPage.self)
+        add(STX.ZeroPageY.self)
+        add(STX.Absolute.self)
+        
+        add(STY.ZeroPage.self)
+        add(STY.ZeroPageX.self)
+        add(STY.Absolute.self)
+        
+        add(CMP.Immediate.self)
+        add(CMP.ZeroPage.self)
+        add(CMP.ZeroPageX.self)
+        add(CMP.Absolute.self)
+        add(CMP.AbsoluteX.self)
+        add(CMP.AbsoluteY.self)
+        add(CMP.IndirectX.self)
+        add(CMP.IndirectY.self)
+        add(CPX.Immediate.self)
+        add(CPX.ZeroPage.self)
+        add(CPX.Absolute.self)
+        add(CPY.Immediate.self)
+        add(CPY.ZeroPage.self)
+        add(CPY.Absolute.self)
+        
+        add(BEQ.self)
+        add(BNE.self)
+        add(BPL.self)
+        add(BCC.self)
+        add(BCS.self)
+        add(BMI.self)
+        add(BVC.self)
+        add(BVS.self)
+        
+        add(JSR.self)
+        add(RTS.self)
+        add(RTI.self)
+        add(JMP.Absolute.self)
+        add(JMP.Indirect.self)
+        
+        add(ADC.Immediate.self)
+        add(ADC.ZeroPage.self)
+        add(ADC.ZeroPageX.self)
+        add(ADC.Absolute.self)
+        add(ADC.AbsoluteX.self)
+        add(ADC.AbsoluteY.self)
+        add(ADC.IndirectX.self)
+        add(ADC.IndirectY.self)
+        
+        add(SBC.Immediate.self)
+        add(SBC.ZeroPage.self)
+        add(SBC.ZeroPageX.self)
+        add(SBC.Absolute.self)
+        add(SBC.AbsoluteX.self)
+        add(SBC.AbsoluteY.self)
+        add(SBC.IndirectX.self)
+        add(SBC.IndirectY.self)
+        
+        add(INX.self)
+        add(INY.self)
+        add(DEX.self)
+        add(DEY.self)
+        add(DEC.ZeroPage.self)
+        add(DEC.ZeroPageX.self)
+        add(DEC.Absolute.self)
+        add(DEC.AbsoluteX.self)
+        add(INC.ZeroPage.self)
+        add(INC.ZeroPageX.self)
+        add(INC.Absolute.self)
+        add(INC.AbsoluteX.self)
+        
+        add(TAX.self)
+        add(TAY.self)
+        add(TXA.self)
+        add(TXS.self)
+        add(TSX.self)
+        add(TYA.self)
+        
+        add(PHA.self)
+        add(PLA.self)
+        add(PHP.self)
+        add(PLP.self)
+        
+        add(CLC.self)
+        add(CLD.self)
+        add(CLI.self)
+        add(CLV.self)
+        add(SEC.self)
+        add(SED.self)
+        add(SEI.self)
+        add(BIT.ZeroPage.self)
+        add(BIT.Absolute.self)
+        
+        add(ASL.Accumulator.self)
+        add(ASL.ZeroPage.self)
+        add(ASL.ZeroPageX.self)
+        add(ASL.Absolute.self)
+        add(ASL.AbsoluteX.self)
+        
+        add(ROL.Accumulator.self)
+        add(ROL.ZeroPage.self)
+        add(ROL.ZeroPageX.self)
+        add(ROL.Absolute.self)
+        add(ROL.AbsoluteX.self)
+        
+        add(ROR.Accumulator.self)
+        add(ROR.ZeroPage.self)
+        add(ROR.ZeroPageX.self)
+        add(ROR.Absolute.self)
+        add(ROR.AbsoluteX.self)
+        
+        add(LSR.Accumulator.self)
+        add(LSR.ZeroPage.self)
+        add(LSR.ZeroPageX.self)
+        add(LSR.Absolute.self)
+        add(LSR.AbsoluteX.self)
+        
+        add(AND.Immediate.self)
+        add(AND.ZeroPage.self)
+        add(AND.ZeroPageX.self)
+        add(AND.Absolute.self)
+        add(AND.AbsoluteX.self)
+        add(AND.AbsoluteY.self)
+        add(AND.IndirectX.self)
+        add(AND.IndirectY.self)
+        
+        add(ORA.Immediate.self)
+        add(ORA.ZeroPage.self)
+        add(ORA.ZeroPageX.self)
+        add(ORA.Absolute.self)
+        add(ORA.AbsoluteX.self)
+        add(ORA.AbsoluteY.self)
+        add(ORA.IndirectX.self)
+        add(ORA.IndirectY.self)
+        
+        add(EOR.Immediate.self)
+        add(EOR.ZeroPage.self)
+        add(EOR.ZeroPageX.self)
+        add(EOR.Absolute.self)
+        add(EOR.AbsoluteX.self)
+        add(EOR.AbsoluteY.self)
+        add(EOR.IndirectX.self)
+        add(EOR.IndirectY.self)
+        
+        add(BRK.self)
+        add(NOP.self)
+    }
+}

@@ -21,6 +21,17 @@ public class Processor {
     private let executor: Executor
     private var doReset = false
 
+    public var a: UInt8 { registers.a }
+    public var x: UInt8 { registers.x }
+    public var y: UInt8 { registers.y }
+    public var sp: UInt8 { registers.sp }
+    public var pc: UInt16 { registers.pc }
+    public var memory: Memory { _memory }
+
+    // Called when BRK encountered. Return true to stop execution.
+    public var brkHandler: ((_ address: UInt16, _ processor: Processor) -> Bool)?
+
+    public let status: ProcessorStatus
     public init(memory: Memory) {
         _memory = memory
         executor = Executor(memory: _memory, registers: registers)
@@ -42,32 +53,6 @@ public class Processor {
         status = ReadOnlyStatus(registers.status)
         InstructionSet.addInstructions(processor: self)
     }
-
-    public var a: UInt8 {
-        registers.a
-    }
-
-    public var x: UInt8 {
-        registers.x
-    }
-
-    public var y: UInt8 {
-        registers.y
-    }
-
-    public var pc: UInt16 {
-        registers.pc
-    }
-
-    public var sp: UInt8 {
-        registers.sp
-    }
-
-    public var memory: Memory {
-        _memory
-    }
-
-    public let status: ProcessorStatus
 
     public func addInstruction(_ i: Instruction.Type) {
         instructions[Int(i.opcode)] = i
@@ -107,10 +92,9 @@ public class Processor {
                 $0.onInstruction(address: registers.pc - 1, instruction: instruction, processor: self)
             }
 
-            // Comment out to run 502_functional_test until we come up with a better scheme
-//            if (opcode == BRK.opcode) {
-//                return
-//            }
+            if opcode == BRK.opcode && brkHandler?(registers.pc - 1, self) ?? false {
+                return
+            }
 
             instruction.execute(memory: memory, registers: registers, stack: stack, executor: executor)
         }

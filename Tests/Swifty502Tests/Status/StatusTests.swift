@@ -25,12 +25,12 @@ class StatusTests: NoProcessorTestCase {
     }
 
     func testCLI() throws {
-        registers.status[.Interrupt] = true
-        XCTAssertTrue(registers.status[.Interrupt])
+        registers.status[.InterruptDisable] = true
+        XCTAssertTrue(registers.status[.InterruptDisable])
         CLI.execute(memory: memory, registers: registers, stack: stack, executor: executor)
-        XCTAssertFalse(registers.status[.Interrupt])
+        XCTAssertFalse(registers.status[.InterruptDisable])
         CLI.execute(memory: memory, registers: registers, stack: stack, executor: executor)
-        XCTAssertFalse(registers.status[.Interrupt])
+        XCTAssertFalse(registers.status[.InterruptDisable])
     }
 
     func testCLV() throws {
@@ -43,12 +43,12 @@ class StatusTests: NoProcessorTestCase {
     }
 
     func testSEI() throws {
-        registers.status[.Interrupt] = false
-        XCTAssertFalse(registers.status[.Interrupt])
+        registers.status[.InterruptDisable] = false
+        XCTAssertFalse(registers.status[.InterruptDisable])
         SEI.execute(memory: memory, registers: registers, stack: stack, executor: executor)
-        XCTAssertTrue(registers.status[.Interrupt])
+        XCTAssertTrue(registers.status[.InterruptDisable])
         SEI.execute(memory: memory, registers: registers, stack: stack, executor: executor)
-        XCTAssertTrue(registers.status[.Interrupt])
+        XCTAssertTrue(registers.status[.InterruptDisable])
     }
 
     func testSEC() throws {

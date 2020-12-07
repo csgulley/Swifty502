@@ -11,7 +11,7 @@ class RTITests: NoProcessorTestCase {
         registers.status[.Negative] = true
         registers.status[.Overflow] = false
         registers.status[.Decimal] = false
-        registers.status[.Interrupt] = false
+        registers.status[.InterruptDisable] = false
         registers.status[.Zero] = false
         registers.status[.Carry] = true
         stack.pushByte(registers.status.statusByte)

@@ -10,7 +10,7 @@ public enum ProcessorFlag {
     case Overflow
     case Break
     case Decimal
-    case Interrupt
+    case InterruptDisable
     case Zero
     case Carry
 }

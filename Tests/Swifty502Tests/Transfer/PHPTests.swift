@@ -10,7 +10,7 @@ class PHPTests: NoProcessorTestCase {
         registers.status[.Negative] = true
         registers.status[.Overflow] = false
         registers.status[.Decimal] = false
-        registers.status[.Interrupt] = true
+        registers.status[.InterruptDisable] = true
         registers.status[.Zero] = false
         registers.status[.Carry] = true
         PHP.execute(memory: memory, registers: registers, stack: stack, executor: executor)

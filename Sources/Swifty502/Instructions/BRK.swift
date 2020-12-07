@@ -12,7 +12,7 @@ struct BRK: ImpliedMode {
     static func execute(memory: Memory, registers: Registers, stack: Stack, executor: Executor) {
         stack.pushWord(registers.pc + 1)
         stack.pushByte(registers.status.statusByte)
-        registers.status[.Interrupt] = true
+        registers.status[.InterruptDisable] = true
         registers.pc = memory.readWord(0xfffe)
     }
 }

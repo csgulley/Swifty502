@@ -15,7 +15,7 @@ class StatusRegister {
                     | (1 << 5)
                     | (1 << 4)
                     | ((self[.Decimal] ? 1 : 0) << 3)
-                    | ((self[.Interrupt] ? 1 : 0) << 2)
+                    | ((self[.InterruptDisable] ? 1 : 0) << 2)
                     | ((self[.Zero] ? 1 : 0) << 1)
                     | ((self[.Carry] ? 1 : 0) << 0)
         }
@@ -24,7 +24,7 @@ class StatusRegister {
             self[.Negative] = (newValue & 0x80) > 0
             self[.Overflow] = (newValue & 0x40) > 0
             self[.Decimal] = (newValue & 0x08) > 0
-            self[.Interrupt] = (newValue & 0x04) > 0
+            self[.InterruptDisable] = (newValue & 0x04) > 0
             self[.Zero] = (newValue & 0x02) > 0
             self[.Carry] = (newValue & 0x01) > 0
         }

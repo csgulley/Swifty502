@@ -72,7 +72,7 @@ public class Processor {
     }
 
     private func handleReset() {
-        registers.status[.Interrupt] = true
+        registers.status[.InterruptDisable] = true
         registers.pc = memory.readWord(0xfffc)
         doReset = false
     }

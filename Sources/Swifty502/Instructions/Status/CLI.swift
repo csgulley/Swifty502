@@ -10,6 +10,6 @@ struct CLI: ImpliedMode {
     static var mnemonic = "CLI"
 
     static func execute(memory: Memory, registers: Registers, stack: Stack, executor: Executor) {
-        registers.status[.Interrupt] = false
+        registers.status[.InterruptDisable] = false
     }
 }

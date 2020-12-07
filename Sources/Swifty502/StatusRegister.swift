@@ -6,7 +6,7 @@
 //
 
 class StatusRegister {
-    private var flags = [ProcessorFlag: Bool]()
+    private var flags = [StatusFlag: Bool]()
 
     var statusByte: UInt8 {
         get {
@@ -30,7 +30,7 @@ class StatusRegister {
         }
     }
 
-    subscript(index: ProcessorFlag) -> Bool {
+    subscript(index: StatusFlag) -> Bool {
         get {
             flags[index] ?? false
         }
@@ -39,13 +39,13 @@ class StatusRegister {
         }
     }
 
-    func updateFlags(_ value: UInt8, _ flags: ProcessorFlag...) {
+    func updateFlags(_ value: UInt8, _ flags: StatusFlag...) {
         for flag in flags {
             updateFlag(value, flag)
         }
     }
 
-    private func updateFlag(_ value: UInt8, _ flag: ProcessorFlag) {
+    private func updateFlag(_ value: UInt8, _ flag: StatusFlag) {
         switch (flag) {
         case .Zero:
             flags[.Zero] = value == 0

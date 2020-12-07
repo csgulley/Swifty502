@@ -45,7 +45,7 @@ public class Processor {
                 register = r
             }
 
-            subscript(index: ProcessorFlag) -> Bool {
+            subscript(index: StatusFlag) -> Bool {
                 register[index]
             }
         }

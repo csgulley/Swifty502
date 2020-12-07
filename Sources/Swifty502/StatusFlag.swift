@@ -5,7 +5,7 @@
 //  Created by Chris Gulley on 11/22/20.
 //
 
-public enum ProcessorFlag {
+public enum StatusFlag {
     case Negative
     case Overflow
     case Break

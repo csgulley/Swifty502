@@ -6,5 +6,5 @@
 //
 
 public protocol ProcessorStatus {
-    subscript(index: ProcessorFlag) -> Bool { get }
+    subscript(index: StatusFlag) -> Bool { get }
 }

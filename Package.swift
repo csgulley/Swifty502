@@ -10,7 +10,10 @@ let package = Package(
             targets: ["Swifty502"]),
         .executable(
             name: "SampleApp",
-            targets: ["SampleApp"])
+            targets: ["SampleApp"]),
+        .executable(
+            name: "Klaus6502Tests",
+            targets: ["Klaus6502Tests"])
     ],
     dependencies: [
     ],
@@ -21,11 +24,11 @@ let package = Package(
         .target(
             name: "SampleApp",
             dependencies: ["Swifty502"]),
-        .testTarget(
-            name: "Swifty502Tests",
+        .target(
+            name: "Klaus6502Tests",
             dependencies: ["Swifty502"]),
         .testTarget(
-            name: "Klaus2m5FunctionalTests",
+            name: "Swifty502Tests",
             dependencies: ["Swifty502"]),
     ]
 )

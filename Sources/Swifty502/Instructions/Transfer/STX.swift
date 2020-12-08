@@ -9,26 +9,26 @@ fileprivate protocol XStoreOperator {
 }
 
 extension XStoreOperator {
-    static func execute(operand: UInt16, memory: Memory, registers: Registers, stack: Stack) {
+    public static func execute(operand: UInt16, memory: Memory, registers: Registers, stack: Stack) {
         memory[operand] = registers.x
     }
 }
 
-struct STX {
-    struct ZeroPage: ZeroPageMode, XStoreOperator {
-        static var opcode: UInt8 = 0x86
-        static var mnemonic = "STX"
+public struct STX {
+    public struct ZeroPage: ZeroPageMode, XStoreOperator {
+        public static var opcode: UInt8 = 0x86
+        public static var mnemonic = "STX"
     }
 
 
-    struct ZeroPageY: ZeroPageYMode, XStoreOperator {
-        static var opcode: UInt8 = 0x96
-        static var mnemonic = "STX"
+    public struct ZeroPageY: ZeroPageYMode, XStoreOperator {
+        public static var opcode: UInt8 = 0x96
+        public static var mnemonic = "STX"
     }
 
-    struct Absolute: AbsoluteMode, XStoreOperator {
-        static var opcode: UInt8 = 0x8e
-        static var mnemonic = "STX"
+    public struct Absolute: AbsoluteMode, XStoreOperator {
+        public static var opcode: UInt8 = 0x8e
+        public static var mnemonic = "STX"
     }
 }
 

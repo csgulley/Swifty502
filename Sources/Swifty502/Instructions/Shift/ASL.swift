@@ -21,7 +21,7 @@ fileprivate protocol AccumulatorShifter: Shifter {
 }
 
 extension AccumulatorShifter {
-    static func execute(memory: Memory, registers: Registers, stack: Stack, executor: Executor) {
+    public static func execute(memory: Memory, registers: Registers, stack: Stack, executor: Executor) {
         registers.a = shift(value: registers.a, registers: registers)
     }
 }
@@ -30,34 +30,34 @@ fileprivate protocol IndirectShifter: Shifter {
 }
 
 extension IndirectShifter {
-    static func execute(operand: UInt16, memory: Memory, registers: Registers, stack: Stack) {
+    public static func execute(operand: UInt16, memory: Memory, registers: Registers, stack: Stack) {
         memory[operand] = shift(value: memory[operand], registers: registers)
     }
 }
 
-struct ASL {
-    struct Accumulator: AccumulatorMode, AccumulatorShifter {
-        static var opcode: UInt8 = 0x0a
-        static var mnemonic = "ASL"
+public struct ASL {
+    public struct Accumulator: AccumulatorMode, AccumulatorShifter {
+        public static var opcode: UInt8 = 0x0a
+        public static var mnemonic = "ASL"
     }
 
-    struct ZeroPage: ZeroPageMode, IndirectShifter {
-        static var opcode: UInt8 = 0x06
-        static var mnemonic = "ASL"
+    public struct ZeroPage: ZeroPageMode, IndirectShifter {
+        public static var opcode: UInt8 = 0x06
+        public static var mnemonic = "ASL"
     }
 
-    struct ZeroPageX: ZeroPageXMode, IndirectShifter {
-        static var opcode: UInt8 = 0x16
-        static var mnemonic = "ASL"
+    public struct ZeroPageX: ZeroPageXMode, IndirectShifter {
+        public static var opcode: UInt8 = 0x16
+        public static var mnemonic = "ASL"
     }
 
-    struct Absolute: AbsoluteMode, IndirectShifter {
-        static var opcode: UInt8 = 0x0e
-        static var mnemonic = "ASL"
+    public struct Absolute: AbsoluteMode, IndirectShifter {
+        public static var opcode: UInt8 = 0x0e
+        public static var mnemonic = "ASL"
     }
 
-    struct AbsoluteX: AbsoluteXMode, IndirectShifter {
-        static var opcode: UInt8 = 0x1e
-        static var mnemonic = "ASL"
+    public struct AbsoluteX: AbsoluteXMode, IndirectShifter {
+        public static var opcode: UInt8 = 0x1e
+        public static var mnemonic = "ASL"
     }
 }

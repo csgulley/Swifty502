@@ -9,24 +9,24 @@ fileprivate protocol YStoreOperator {
 }
 
 extension YStoreOperator {
-    static func execute(operand: UInt16, memory: Memory, registers: Registers, stack: Stack) {
+    public static func execute(operand: UInt16, memory: Memory, registers: Registers, stack: Stack) {
         memory[operand] = registers.y
     }
 }
 
-struct STY {
-    struct ZeroPage: ZeroPageMode, YStoreOperator {
-        static var opcode: UInt8 = 0x84
-        static var mnemonic = "STY"
+public struct STY {
+    public struct ZeroPage: ZeroPageMode, YStoreOperator {
+        public static var opcode: UInt8 = 0x84
+        public static var mnemonic = "STY"
     }
 
-    struct ZeroPageX: ZeroPageXMode, YStoreOperator {
-        static var opcode: UInt8 = 0x94
-        static var mnemonic = "STY"
+    public struct ZeroPageX: ZeroPageXMode, YStoreOperator {
+        public static var opcode: UInt8 = 0x94
+        public static var mnemonic = "STY"
     }
 
-    struct Absolute: AbsoluteMode, YStoreOperator {
-        static var opcode: UInt8 = 0x8c
-        static var mnemonic = "STY"
+    public struct Absolute: AbsoluteMode, YStoreOperator {
+        public static var opcode: UInt8 = 0x8c
+        public static var mnemonic = "STY"
     }
 }

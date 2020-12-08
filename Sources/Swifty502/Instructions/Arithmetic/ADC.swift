@@ -9,7 +9,7 @@ fileprivate protocol AdcOperator {
 }
 
 extension AdcOperator {
-    static var mnemonic: String {
+    public static var mnemonic: String {
         "ADC"
     }
 
@@ -26,7 +26,7 @@ fileprivate protocol ImmediateAdd: AdcOperator {
 }
 
 extension ImmediateAdd {
-    static func execute(operand: UInt8, memory: Memory, registers: Registers, stack: Stack) {
+    public static func execute(operand: UInt8, memory: Memory, registers: Registers, stack: Stack) {
         add(value: operand, registers: registers)
     }
 }
@@ -35,42 +35,42 @@ fileprivate protocol IndirectAdd: AdcOperator {
 }
 
 extension IndirectAdd {
-    static func execute(operand: UInt16, memory: Memory, registers: Registers, stack: Stack) {
+    public static func execute(operand: UInt16, memory: Memory, registers: Registers, stack: Stack) {
         add(value: memory[operand], registers: registers)
     }
 }
 
-struct ADC {
-    struct Immediate: ImmediateMode, ImmediateAdd {
-        static var opcode: UInt8 = 0x69
+public struct ADC {
+    public struct Immediate: ImmediateMode, ImmediateAdd {
+        public static var opcode: UInt8 = 0x69
     }
 
-    struct ZeroPage: ZeroPageMode, IndirectAdd {
-        static var opcode: UInt8 = 0x65
+    public struct ZeroPage: ZeroPageMode, IndirectAdd {
+        public static var opcode: UInt8 = 0x65
     }
 
-    struct ZeroPageX: ZeroPageXMode, IndirectAdd {
-        static var opcode: UInt8 = 0x75
+    public struct ZeroPageX: ZeroPageXMode, IndirectAdd {
+        public static var opcode: UInt8 = 0x75
     }
 
-    struct Absolute: AbsoluteMode, IndirectAdd {
-        static var opcode: UInt8 = 0x6d
+    public struct Absolute: AbsoluteMode, IndirectAdd {
+        public static var opcode: UInt8 = 0x6d
     }
 
-    struct AbsoluteX: AbsoluteXMode, IndirectAdd {
-        static var opcode: UInt8 = 0x7d
+    public struct AbsoluteX: AbsoluteXMode, IndirectAdd {
+        public static var opcode: UInt8 = 0x7d
     }
 
-    struct AbsoluteY: AbsoluteYMode, IndirectAdd {
-        static var opcode: UInt8 = 0x79
+    public struct AbsoluteY: AbsoluteYMode, IndirectAdd {
+        public static var opcode: UInt8 = 0x79
     }
 
-    struct IndirectX: IndirectXMode, IndirectAdd {
-        static var opcode: UInt8 = 0x61
+    public struct IndirectX: IndirectXMode, IndirectAdd {
+        public static var opcode: UInt8 = 0x61
     }
 
-    struct IndirectY: IndirectYMode, IndirectAdd {
-        static var opcode: UInt8 = 0x71
+    public struct IndirectY: IndirectYMode, IndirectAdd {
+        public static var opcode: UInt8 = 0x71
     }
 }
 

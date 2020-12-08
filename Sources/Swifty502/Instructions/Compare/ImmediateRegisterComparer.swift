@@ -9,7 +9,7 @@ protocol ImmediateRegisterComparer: RegisterComparer {
 }
 
 extension ImmediateRegisterComparer {
-    static func execute(operand: UInt8, memory: Memory, registers: Registers, stack: Stack) {
+    public static func execute(operand: UInt8, memory: Memory, registers: Registers, stack: Stack) {
         updateFlags(registerValue: getRegisterValue(registers), operand: operand, status: registers.status)
     }
 }

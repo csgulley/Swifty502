@@ -14,44 +14,44 @@ extension AComparer {
     }
 }
 
-struct CMP {
-    struct Immediate: ImmediateMode, ImmediateRegisterComparer, AComparer {
-        static var opcode: UInt8 = 0xc9
-        static var mnemonic = "CMP"
+public struct CMP {
+    public struct Immediate: ImmediateMode, ImmediateRegisterComparer, AComparer {
+        public static var opcode: UInt8 = 0xc9
+        public static var mnemonic = "CMP"
     }
 
-    struct ZeroPage: ZeroPageMode, IndirectRegisterComparer, AComparer {
-        static var opcode: UInt8 = 0xc5
-        static var mnemonic = "CMP"
+    public struct ZeroPage: ZeroPageMode, IndirectRegisterComparer, AComparer {
+        public static var opcode: UInt8 = 0xc5
+        public static var mnemonic = "CMP"
     }
 
-    struct ZeroPageX: ZeroPageXMode, IndirectRegisterComparer, AComparer {
-        static var opcode: UInt8 = 0xd5
-        static var mnemonic = "CMP"
+    public struct ZeroPageX: ZeroPageXMode, IndirectRegisterComparer, AComparer {
+        public static var opcode: UInt8 = 0xd5
+        public static var mnemonic = "CMP"
     }
 
-    struct Absolute: AbsoluteMode, IndirectRegisterComparer, AComparer {
-        static var opcode: UInt8 = 0xcd
-        static var mnemonic = "CMP"
+    public struct Absolute: AbsoluteMode, IndirectRegisterComparer, AComparer {
+        public static var opcode: UInt8 = 0xcd
+        public static var mnemonic = "CMP"
     }
 
-    struct AbsoluteX: AbsoluteXMode, IndirectRegisterComparer, AComparer {
-        static var opcode: UInt8 = 0xdd
-        static var mnemonic = "CMP"
+    public struct AbsoluteX: AbsoluteXMode, IndirectRegisterComparer, AComparer {
+        public static var opcode: UInt8 = 0xdd
+        public static var mnemonic = "CMP"
     }
 
-    struct AbsoluteY: AbsoluteYMode, IndirectRegisterComparer, AComparer {
-        static var opcode: UInt8 = 0xd9
-        static var mnemonic = "CMP"
+    public struct AbsoluteY: AbsoluteYMode, IndirectRegisterComparer, AComparer {
+        public static var opcode: UInt8 = 0xd9
+        public static var mnemonic = "CMP"
     }
 
-    struct IndirectX: IndirectXMode, IndirectRegisterComparer, AComparer {
-        static var opcode: UInt8 = 0xc1
-        static var mnemonic = "CMP"
+    public struct IndirectX: IndirectXMode, IndirectRegisterComparer, AComparer {
+        public static var opcode: UInt8 = 0xc1
+        public static var mnemonic = "CMP"
     }
 
-    struct IndirectY: IndirectYMode, IndirectRegisterComparer, AComparer {
-        static var opcode: UInt8 = 0xd1
-        static var mnemonic = "CMP"
+    public struct IndirectY: IndirectYMode, IndirectRegisterComparer, AComparer {
+        public static var opcode: UInt8 = 0xd1
+        public static var mnemonic = "CMP"
     }
 }

@@ -9,7 +9,7 @@ fileprivate protocol BITExecutor {
 }
 
 extension BITExecutor {
-    static func execute(operand: UInt16, memory: Memory, registers: Registers, stack: Stack) {
+    public static func execute(operand: UInt16, memory: Memory, registers: Registers, stack: Stack) {
         let value = memory[operand]
         registers.status[.Negative] = (value & 0x80) > 0
         registers.status[.Overflow] = (value & 0x40) > 0
@@ -17,14 +17,14 @@ extension BITExecutor {
     }
 }
 
-struct BIT {
-    struct ZeroPage: ZeroPageMode, BITExecutor {
-        static var opcode: UInt8 = 0x24
-        static var mnemonic = "BIT"
+public struct BIT {
+    public struct ZeroPage: ZeroPageMode, BITExecutor {
+        public static var opcode: UInt8 = 0x24
+        public static var mnemonic = "BIT"
     }
 
-    struct Absolute: AbsoluteMode, BITExecutor {
-        static var opcode: UInt8 = 0x2C
-        static var mnemonic = "BIT"
+    public struct Absolute: AbsoluteMode, BITExecutor {
+        public static var opcode: UInt8 = 0x2C
+        public static var mnemonic = "BIT"
     }
 }

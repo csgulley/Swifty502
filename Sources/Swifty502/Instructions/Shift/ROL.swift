@@ -17,8 +17,8 @@ extension RotateOperation {
         return shifted
     }
 
-    static var mnemonic: String {
-        return "ROL"
+    public static var mnemonic: String {
+        "ROL"
     }
 }
 
@@ -26,7 +26,7 @@ fileprivate protocol AccumulatorRotate: RotateOperation {
 }
 
 extension AccumulatorRotate {
-    static func execute(memory: Memory, registers: Registers, stack: Stack, executor: Executor) {
+    public static func execute(memory: Memory, registers: Registers, stack: Stack, executor: Executor) {
         registers.a = shift(value: registers.a, registers: registers)
     }
 }
@@ -35,30 +35,30 @@ fileprivate protocol IndirectRotate: RotateOperation {
 }
 
 extension IndirectRotate {
-    static func execute(operand: UInt16, memory: Memory, registers: Registers, stack: Stack) {
+    public static func execute(operand: UInt16, memory: Memory, registers: Registers, stack: Stack) {
         memory[operand] = shift(value: memory[operand], registers: registers)
     }
 }
 
-struct ROL {
-    struct Accumulator: AccumulatorMode, AccumulatorRotate {
-        static var opcode: UInt8 = 0x2a
+public struct ROL {
+    public struct Accumulator: AccumulatorMode, AccumulatorRotate {
+        public static var opcode: UInt8 = 0x2a
     }
 
-    struct ZeroPage: ZeroPageMode, IndirectRotate {
-        static var opcode: UInt8 = 0x26
+    public struct ZeroPage: ZeroPageMode, IndirectRotate {
+        public static var opcode: UInt8 = 0x26
     }
 
-    struct ZeroPageX: ZeroPageXMode, IndirectRotate {
-        static var opcode: UInt8 = 0x36
+    public struct ZeroPageX: ZeroPageXMode, IndirectRotate {
+        public static var opcode: UInt8 = 0x36
     }
 
-    struct Absolute: AbsoluteMode, IndirectRotate {
-        static var opcode: UInt8 = 0x2e
+    public struct Absolute: AbsoluteMode, IndirectRotate {
+        public static var opcode: UInt8 = 0x2e
     }
 
-    struct AbsoluteX: AbsoluteXMode, IndirectRotate {
-        static var opcode: UInt8 = 0x3e
+    public struct AbsoluteX: AbsoluteXMode, IndirectRotate {
+        public static var opcode: UInt8 = 0x3e
     }
 }
 

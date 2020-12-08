@@ -14,19 +14,19 @@ extension XComparer {
     }
 }
 
-struct CPX {
-    struct Immediate: ImmediateMode, ImmediateRegisterComparer, XComparer {
-        static var opcode: UInt8 = 0xe0
-        static var mnemonic = "CPX"
+public struct CPX {
+    public struct Immediate: ImmediateMode, ImmediateRegisterComparer, XComparer {
+        public static var opcode: UInt8 = 0xe0
+        public static var mnemonic = "CPX"
     }
 
-    struct ZeroPage: ZeroPageMode, IndirectRegisterComparer, XComparer {
-        static var opcode: UInt8 = 0xe4
-        static var mnemonic = "CPX"
+    public struct ZeroPage: ZeroPageMode, IndirectRegisterComparer, XComparer {
+        public static var opcode: UInt8 = 0xe4
+        public static var mnemonic = "CPX"
     }
 
-    struct Absolute: AbsoluteMode, IndirectRegisterComparer, XComparer {
-        static var opcode: UInt8 = 0xec
-        static var mnemonic = "CPX"
+    public struct Absolute: AbsoluteMode, IndirectRegisterComparer, XComparer {
+        public static var opcode: UInt8 = 0xec
+        public static var mnemonic = "CPX"
     }
 }

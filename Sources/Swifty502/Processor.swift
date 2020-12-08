@@ -32,7 +32,7 @@ public class Processor {
     public var brkHandler: ((_ address: UInt16, _ processor: Processor) -> Bool)?
 
     public let status: ProcessorStatus
-    public init(memory: Memory) {
+    public init(memory: Memory, instructions: InstructionSet.Type? = Instructions6502.self) {
         _memory = memory
         executor = Executor(memory: _memory, registers: registers)
         stack = Stack(memory: _memory, registers: registers)
@@ -51,7 +51,8 @@ public class Processor {
         }
 
         status = ReadOnlyStatus(registers.status)
-        InstructionSet.addInstructions(processor: self)
+        
+        instructions?.instructions.forEach { addInstruction($0) }
     }
 
     public func addInstruction(_ i: Instruction.Type) {

@@ -9,6 +9,7 @@ fileprivate protocol XLoader: RegisterLoader {
 }
 
 extension XLoader {
+    public static var mnemonic: String { "LDX" }
     static func setValue(value: UInt8, registers: Registers) {
         registers.x = value
     }
@@ -17,26 +18,21 @@ extension XLoader {
 public struct LDX {
     public struct Immediate: ImmediateMode, ImmediateRegisterLoader, XLoader {
         public static var opcode: UInt8 = 0xa2
-        public static var mnemonic = "LDX"
     }
 
     public struct ZeroPage: ZeroPageMode, IndirectRegisterLoader, XLoader {
         public static var opcode: UInt8 = 0xa6
-        public static var mnemonic = "LDX"
     }
 
     public struct ZeroPageY: ZeroPageYMode, IndirectRegisterLoader, XLoader {
         public static var opcode: UInt8 = 0xb6
-        public static var mnemonic = "LDX"
     }
 
     public struct Absolute: AbsoluteMode, IndirectRegisterLoader, XLoader {
         public static var opcode: UInt8 = 0xae
-        public static var mnemonic = "LDX"
     }
 
     public struct AbsoluteY: AbsoluteYMode, IndirectRegisterLoader, XLoader {
         public static var opcode: UInt8 = 0xbe
-        public static var mnemonic = "LDX"
     }
 }

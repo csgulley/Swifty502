@@ -9,6 +9,8 @@ fileprivate protocol YComparer: RegisterComparer {
 }
 
 extension YComparer {
+    public static var mnemonic: String { "CPY" }
+
     static func getRegisterValue(_ registers: Registers) -> UInt8 {
         registers.y
     }
@@ -17,17 +19,14 @@ extension YComparer {
 public struct CPY {
     public struct Immediate: ImmediateMode, ImmediateRegisterComparer, YComparer {
         public static var opcode: UInt8 = 0xc0
-        public static var mnemonic = "CPY"
     }
 
     public struct ZeroPage: ZeroPageMode, IndirectRegisterComparer, YComparer {
         public static var opcode: UInt8 = 0xc4
-        public static var mnemonic = "CPY"
     }
 
     public struct Absolute: AbsoluteMode, IndirectRegisterComparer, YComparer {
         public static var opcode: UInt8 = 0xcc
-        public static var mnemonic = "CPY"
     }
 }
 

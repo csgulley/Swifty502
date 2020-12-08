@@ -9,9 +9,7 @@ fileprivate protocol AdcOperator {
 }
 
 extension AdcOperator {
-    public static var mnemonic: String {
-        "ADC"
-    }
+    public static var mnemonic: String { "ADC" }
 
     static func add(value: UInt8, registers: Registers) {
         if (registers.status[.Decimal]) {

@@ -9,6 +9,8 @@ fileprivate protocol XComparer: RegisterComparer {
 }
 
 extension XComparer {
+    public static var mnemonic: String { "CPX" }
+
     static func getRegisterValue(_ registers: Registers) -> UInt8 {
         registers.x
     }
@@ -17,16 +19,13 @@ extension XComparer {
 public struct CPX {
     public struct Immediate: ImmediateMode, ImmediateRegisterComparer, XComparer {
         public static var opcode: UInt8 = 0xe0
-        public static var mnemonic = "CPX"
     }
 
     public struct ZeroPage: ZeroPageMode, IndirectRegisterComparer, XComparer {
         public static var opcode: UInt8 = 0xe4
-        public static var mnemonic = "CPX"
     }
 
     public struct Absolute: AbsoluteMode, IndirectRegisterComparer, XComparer {
         public static var opcode: UInt8 = 0xec
-        public static var mnemonic = "CPX"
     }
 }

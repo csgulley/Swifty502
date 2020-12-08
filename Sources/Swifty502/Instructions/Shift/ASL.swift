@@ -9,6 +9,7 @@ fileprivate protocol Shifter {
 }
 
 extension Shifter {
+    public static var mnemonic: String { "ASL" }
     static func shift(value: UInt8, registers: Registers) -> UInt8 {
         registers.status[.Carry] = (value & 0x80) > 0
         let shifted = value << 1
@@ -38,26 +39,21 @@ extension IndirectShifter {
 public struct ASL {
     public struct Accumulator: AccumulatorMode, AccumulatorShifter {
         public static var opcode: UInt8 = 0x0a
-        public static var mnemonic = "ASL"
     }
 
     public struct ZeroPage: ZeroPageMode, IndirectShifter {
         public static var opcode: UInt8 = 0x06
-        public static var mnemonic = "ASL"
     }
 
     public struct ZeroPageX: ZeroPageXMode, IndirectShifter {
         public static var opcode: UInt8 = 0x16
-        public static var mnemonic = "ASL"
     }
 
     public struct Absolute: AbsoluteMode, IndirectShifter {
         public static var opcode: UInt8 = 0x0e
-        public static var mnemonic = "ASL"
     }
 
     public struct AbsoluteX: AbsoluteXMode, IndirectShifter {
         public static var opcode: UInt8 = 0x1e
-        public static var mnemonic = "ASL"
     }
 }

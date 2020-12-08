@@ -9,6 +9,8 @@ fileprivate protocol OrOperator {
 }
 
 extension OrOperator {
+    public static var mnemonic: String { "ORA" }
+
     static func and(value: UInt8, registers: Registers) {
         registers.a |= value
         registers.status.updateFlags(registers.a, .Zero, .Negative)
@@ -36,42 +38,34 @@ extension IndirectOr {
 public struct ORA {
     public struct Immediate: ImmediateMode, ImmediateOr {
         public static var opcode: UInt8 = 0x09
-        public static var mnemonic = "AND"
     }
 
     public struct ZeroPage: ZeroPageMode, IndirectOr {
         public static var opcode: UInt8 = 0x05
-        public static var mnemonic = "AND"
     }
 
     public struct ZeroPageX: ZeroPageXMode, IndirectOr {
         public static var opcode: UInt8 = 0x15
-        public static var mnemonic = "AND"
     }
 
     public struct Absolute: AbsoluteMode, IndirectOr {
         public static var opcode: UInt8 = 0x0d
-        public static var mnemonic = "AND"
     }
 
     public struct AbsoluteX: AbsoluteXMode, IndirectOr {
         public static var opcode: UInt8 = 0x1d
-        public static var mnemonic = "AND"
     }
 
     public struct AbsoluteY: AbsoluteYMode, IndirectOr {
         public static var opcode: UInt8 = 0x19
-        public static var mnemonic = "AND"
     }
 
     public struct IndirectX: IndirectXMode, IndirectOr {
         public static var opcode: UInt8 = 0x01
-        public static var mnemonic = "AND"
     }
 
     public struct IndirectY: IndirectYMode, IndirectOr {
         public static var opcode: UInt8 = 0x11
-        public static var mnemonic = "AND"
     }
 
 }

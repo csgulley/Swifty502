@@ -9,6 +9,8 @@ fileprivate protocol DecrementOperator {
 }
 
 extension DecrementOperator {
+    public static var mnemonic: String { "DEC" }
+
     public static func execute(operand: UInt16, memory: Memory, registers: Registers, stack: Stack) {
         memory[operand] &-= 1
         registers.status.updateFlags(memory[operand], .Zero, .Negative)
@@ -18,21 +20,17 @@ extension DecrementOperator {
 public struct DEC {
     public struct ZeroPage: ZeroPageMode, DecrementOperator {
         public static var opcode: UInt8 = 0xc6
-        public static var mnemonic = "DEC"
     }
 
     public struct ZeroPageX: ZeroPageXMode, DecrementOperator {
         public static var opcode: UInt8 = 0xd6
-        public static var mnemonic = "DEC"
     }
 
     public struct Absolute: AbsoluteMode, DecrementOperator {
         public static var opcode: UInt8 = 0xce
-        public static var mnemonic = "DEC"
     }
 
     public struct AbsoluteX: AbsoluteXMode, DecrementOperator {
         public static var opcode: UInt8 = 0xde
-        public static var mnemonic = "DEC"
     }
 }

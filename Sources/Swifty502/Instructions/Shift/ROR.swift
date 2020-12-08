@@ -9,16 +9,14 @@ fileprivate protocol RotateOperation {
 }
 
 extension RotateOperation {
+    public static var mnemonic: String { "ROR" }
+
     static func shift(value: UInt8, registers: Registers) -> UInt8 {
         let carryBitmask: UInt8 = registers.status[.Carry] ? 0x80 : 0x00
         registers.status[.Carry] = (value & 0x01) > 0
         let shifted = (value >> 1) | carryBitmask
         registers.status.updateFlags(shifted, .Zero, .Negative)
         return shifted
-    }
-
-    public static var mnemonic: String {
-        "ROR"
     }
 }
 

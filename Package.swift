@@ -24,5 +24,8 @@ let package = Package(
         .testTarget(
             name: "Swifty502Tests",
             dependencies: ["Swifty502"]),
+        .testTarget(
+            name: "Klaus2m5FunctionalTests",
+            dependencies: ["Swifty502"]),
     ]
 )

@@ -7,7 +7,7 @@
 
 import Foundation
 
-public class Processor {
+final public class Processor {
     public struct UnknownInstruction: Error {
         public let address: UInt16
         public let opcode: UInt8

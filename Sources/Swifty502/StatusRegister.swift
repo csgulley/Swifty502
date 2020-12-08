@@ -5,7 +5,7 @@
 //  Created by Chris Gulley on 11/22/20.
 //
 
-class StatusRegister {
+final class StatusRegister {
     private var flags = [StatusFlag: Bool]()
 
     var statusByte: UInt8 {

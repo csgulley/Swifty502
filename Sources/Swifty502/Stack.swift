@@ -5,7 +5,7 @@
 //  Created by Chris Gulley on 11/23/20.
 //
 
-public class Stack {
+final public class Stack {
     private static let Base: UInt16 = 0x100
     private let memory: Memory
     private let registers: Registers

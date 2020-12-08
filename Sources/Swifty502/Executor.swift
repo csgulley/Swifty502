@@ -5,7 +5,7 @@
 //  Created by Chris Gulley on 11/30/20.
 //
 
-public class Executor {
+final public class Executor {
     private let registers: Registers
     private let memory: Memory
 

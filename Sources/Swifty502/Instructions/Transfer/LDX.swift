@@ -14,29 +14,29 @@ extension XLoader {
     }
 }
 
-struct LDX {
-    struct Immediate: ImmediateMode, ImmediateRegisterLoader, XLoader {
-        static var opcode: UInt8 = 0xa2
-        static var mnemonic = "LDX"
+public struct LDX {
+    public struct Immediate: ImmediateMode, ImmediateRegisterLoader, XLoader {
+        public static var opcode: UInt8 = 0xa2
+        public static var mnemonic = "LDX"
     }
 
-    struct ZeroPage: ZeroPageMode, IndirectRegisterLoader, XLoader {
-        static var opcode: UInt8 = 0xa6
-        static var mnemonic = "LDX"
+    public struct ZeroPage: ZeroPageMode, IndirectRegisterLoader, XLoader {
+        public static var opcode: UInt8 = 0xa6
+        public static var mnemonic = "LDX"
     }
 
-    struct ZeroPageY: ZeroPageYMode, IndirectRegisterLoader, XLoader {
-        static var opcode: UInt8 = 0xb6
-        static var mnemonic = "LDX"
+    public struct ZeroPageY: ZeroPageYMode, IndirectRegisterLoader, XLoader {
+        public static var opcode: UInt8 = 0xb6
+        public static var mnemonic = "LDX"
     }
 
-    struct Absolute: AbsoluteMode, IndirectRegisterLoader, XLoader {
-        static var opcode: UInt8 = 0xae
-        static var mnemonic = "LDX"
+    public struct Absolute: AbsoluteMode, IndirectRegisterLoader, XLoader {
+        public static var opcode: UInt8 = 0xae
+        public static var mnemonic = "LDX"
     }
 
-    struct AbsoluteY: AbsoluteYMode, IndirectRegisterLoader, XLoader {
-        static var opcode: UInt8 = 0xbe
-        static var mnemonic = "LDX"
+    public struct AbsoluteY: AbsoluteYMode, IndirectRegisterLoader, XLoader {
+        public static var opcode: UInt8 = 0xbe
+        public static var mnemonic = "LDX"
     }
 }

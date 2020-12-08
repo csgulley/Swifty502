@@ -9,8 +9,8 @@ fileprivate protocol XorOperator {
 }
 
 extension XorOperator {
-    static var mnemonic: String {
-        return "EOR"
+    public static var mnemonic: String {
+        "EOR"
     }
 
     static func and(value: UInt8, registers: Registers) {
@@ -23,7 +23,7 @@ fileprivate protocol ImmediateXor: XorOperator {
 }
 
 extension ImmediateXor {
-    static func execute(operand: UInt8, memory: Memory, registers: Registers, stack: Stack) {
+    public static func execute(operand: UInt8, memory: Memory, registers: Registers, stack: Stack) {
         and(value: operand, registers: registers)
     }
 }
@@ -32,42 +32,42 @@ fileprivate protocol IndirectXor: XorOperator {
 }
 
 extension IndirectXor {
-    static func execute(operand: UInt16, memory: Memory, registers: Registers, stack: Stack) {
+    public static func execute(operand: UInt16, memory: Memory, registers: Registers, stack: Stack) {
         and(value: memory[operand], registers: registers)
     }
 }
 
-struct EOR {
-    struct Immediate: ImmediateMode, ImmediateXor {
-        static var opcode: UInt8 = 0x49
+public struct EOR {
+    public struct Immediate: ImmediateMode, ImmediateXor {
+        public static var opcode: UInt8 = 0x49
     }
 
-    struct ZeroPage: ZeroPageMode, IndirectXor {
-        static var opcode: UInt8 = 0x45
+    public struct ZeroPage: ZeroPageMode, IndirectXor {
+        public static var opcode: UInt8 = 0x45
     }
 
-    struct ZeroPageX: ZeroPageXMode, IndirectXor {
-        static var opcode: UInt8 = 0x55
+    public struct ZeroPageX: ZeroPageXMode, IndirectXor {
+        public static var opcode: UInt8 = 0x55
     }
 
-    struct Absolute: AbsoluteMode, IndirectXor {
-        static var opcode: UInt8 = 0x4d
+    public struct Absolute: AbsoluteMode, IndirectXor {
+        public static var opcode: UInt8 = 0x4d
     }
 
-    struct AbsoluteX: AbsoluteXMode, IndirectXor {
-        static var opcode: UInt8 = 0x5d
+    public struct AbsoluteX: AbsoluteXMode, IndirectXor {
+        public static var opcode: UInt8 = 0x5d
     }
 
-    struct AbsoluteY: AbsoluteYMode, IndirectXor {
-        static var opcode: UInt8 = 0x59
+    public struct AbsoluteY: AbsoluteYMode, IndirectXor {
+        public static var opcode: UInt8 = 0x59
     }
 
-    struct IndirectX: IndirectXMode, IndirectXor {
-        static var opcode: UInt8 = 0x41
+    public struct IndirectX: IndirectXMode, IndirectXor {
+        public static var opcode: UInt8 = 0x41
     }
 
-    struct IndirectY: IndirectYMode, IndirectXor {
-        static var opcode: UInt8 = 0x51
+    public struct IndirectY: IndirectYMode, IndirectXor {
+        public static var opcode: UInt8 = 0x51
     }
 
 }

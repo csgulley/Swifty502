@@ -10,7 +10,7 @@ protocol Conditional {
 }
 
 extension Conditional {
-    static func execute(offset: Int8, memory: Memory, registers: Registers, stack: Stack) {
+    public static func execute(offset: Int8, memory: Memory, registers: Registers, stack: Stack) {
         if (shouldBranch(registers: registers)) {
             let address = Int(registers.pc) + Int(offset)
             registers.pc = UInt16(address)

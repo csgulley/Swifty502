@@ -5,11 +5,11 @@
 //  Created by Chris Gulley on 11/25/20.
 //
 
-protocol AccumulatorMode: Instruction {
+public protocol AccumulatorMode: Instruction {
 }
 
 extension AccumulatorMode {
-    static var addressMode: AddressMode {
+    public static var addressMode: AddressMode {
         .Accumulator
     }
 }

@@ -14,20 +14,20 @@ extension YComparer {
     }
 }
 
-struct CPY {
-    struct Immediate: ImmediateMode, ImmediateRegisterComparer, YComparer {
-        static var opcode: UInt8 = 0xc0
-        static var mnemonic = "CPY"
+public struct CPY {
+    public struct Immediate: ImmediateMode, ImmediateRegisterComparer, YComparer {
+        public static var opcode: UInt8 = 0xc0
+        public static var mnemonic = "CPY"
     }
 
-    struct ZeroPage: ZeroPageMode, IndirectRegisterComparer, YComparer {
-        static var opcode: UInt8 = 0xc4
-        static var mnemonic = "CPY"
+    public struct ZeroPage: ZeroPageMode, IndirectRegisterComparer, YComparer {
+        public static var opcode: UInt8 = 0xc4
+        public static var mnemonic = "CPY"
     }
 
-    struct Absolute: AbsoluteMode, IndirectRegisterComparer, YComparer {
-        static var opcode: UInt8 = 0xcc
-        static var mnemonic = "CPY"
+    public struct Absolute: AbsoluteMode, IndirectRegisterComparer, YComparer {
+        public static var opcode: UInt8 = 0xcc
+        public static var mnemonic = "CPY"
     }
 }
 

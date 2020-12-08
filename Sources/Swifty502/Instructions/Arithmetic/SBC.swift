@@ -9,7 +9,7 @@ fileprivate protocol SubtractOperator {
 }
 
 extension SubtractOperator {
-    static var mnemonic: String {
+    public static var mnemonic: String {
         "SBC"
     }
 
@@ -26,7 +26,7 @@ fileprivate protocol ImmediateSubtract: SubtractOperator {
 }
 
 extension ImmediateSubtract {
-    static func execute(operand: UInt8, memory: Memory, registers: Registers, stack: Stack) {
+    public static func execute(operand: UInt8, memory: Memory, registers: Registers, stack: Stack) {
         subtract(value: operand, registers: registers)
     }
 }
@@ -35,42 +35,42 @@ fileprivate protocol IndirectSubtract: SubtractOperator {
 }
 
 extension IndirectSubtract {
-    static func execute(operand: UInt16, memory: Memory, registers: Registers, stack: Stack) {
+    public static func execute(operand: UInt16, memory: Memory, registers: Registers, stack: Stack) {
         subtract(value: memory[operand], registers: registers)
     }
 }
 
-struct SBC {
-    struct Immediate: ImmediateMode, ImmediateSubtract {
-        static var opcode: UInt8 = 0xe9
+public struct SBC {
+    public struct Immediate: ImmediateMode, ImmediateSubtract {
+        public static var opcode: UInt8 = 0xe9
     }
 
-    struct ZeroPage: ZeroPageMode, IndirectSubtract {
-        static var opcode: UInt8 = 0xe5
+    public struct ZeroPage: ZeroPageMode, IndirectSubtract {
+        public static var opcode: UInt8 = 0xe5
     }
 
-    struct ZeroPageX: ZeroPageXMode, IndirectSubtract {
-        static var opcode: UInt8 = 0xf5
+    public struct ZeroPageX: ZeroPageXMode, IndirectSubtract {
+        public static var opcode: UInt8 = 0xf5
     }
 
-    struct Absolute: AbsoluteMode, IndirectSubtract {
-        static var opcode: UInt8 = 0xed
+    public struct Absolute: AbsoluteMode, IndirectSubtract {
+        public static var opcode: UInt8 = 0xed
     }
 
-    struct AbsoluteX: AbsoluteXMode, IndirectSubtract {
-        static var opcode: UInt8 = 0xfd
+    public struct AbsoluteX: AbsoluteXMode, IndirectSubtract {
+        public static var opcode: UInt8 = 0xfd
     }
 
-    struct AbsoluteY: AbsoluteYMode, IndirectSubtract {
-        static var opcode: UInt8 = 0xf9
+    public struct AbsoluteY: AbsoluteYMode, IndirectSubtract {
+        public static var opcode: UInt8 = 0xf9
     }
 
-    struct IndirectX: IndirectXMode, IndirectSubtract {
-        static var opcode: UInt8 = 0xe1
+    public struct IndirectX: IndirectXMode, IndirectSubtract {
+        public static var opcode: UInt8 = 0xe1
     }
 
-    struct IndirectY: IndirectYMode, IndirectSubtract {
-        static var opcode: UInt8 = 0xf1
+    public struct IndirectY: IndirectYMode, IndirectSubtract {
+        public static var opcode: UInt8 = 0xf1
     }
 }
 

@@ -5,9 +5,9 @@
 //  Created by Chris Gulley on 11/23/20.
 //
 
-struct BPL: RelativeMode, Conditional {
-    static var opcode: UInt8 = 0x10
-    static var mnemonic = "BPL"
+public struct BPL: RelativeMode, Conditional {
+    public static var opcode: UInt8 = 0x10
+    public static var mnemonic = "BPL"
     static func shouldBranch(registers: Registers) -> Bool {
         !registers.status[.Negative]
     }

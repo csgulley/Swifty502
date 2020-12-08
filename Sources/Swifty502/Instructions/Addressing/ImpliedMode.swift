@@ -5,11 +5,11 @@
 //  Created by Chris Gulley on 11/25/20.
 //
 
-protocol ImpliedMode: Instruction {
+public protocol ImpliedMode: Instruction {
 }
 
 extension ImpliedMode {
-    static var addressMode: AddressMode {
+    public static var addressMode: AddressMode {
         .Implied
     }
 }

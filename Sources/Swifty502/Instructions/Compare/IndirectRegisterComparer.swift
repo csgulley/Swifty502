@@ -9,7 +9,7 @@ protocol IndirectRegisterComparer: RegisterComparer {
 }
 
 extension IndirectRegisterComparer {
-    static func execute(operand: UInt16, memory: Memory, registers: Registers, stack: Stack) {
+    public static func execute(operand: UInt16, memory: Memory, registers: Registers, stack: Stack) {
         let value = memory[operand]
         updateFlags(registerValue: getRegisterValue(registers), operand: value, status: registers.status)
     }

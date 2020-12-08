@@ -9,31 +9,31 @@ fileprivate protocol Incrementer {
 }
 
 extension Incrementer {
-    static var mnemonic: String {
+    public static var mnemonic: String {
         "INC"
     }
 
-    static func execute(operand: UInt16, memory: Memory, registers: Registers, stack: Stack) {
+    public static func execute(operand: UInt16, memory: Memory, registers: Registers, stack: Stack) {
         memory[operand] &+= 1
         registers.status.updateFlags(memory[operand], .Zero, .Negative)
     }
 }
 
-struct INC {
-    struct ZeroPage: ZeroPageMode, Incrementer {
-        static var opcode: UInt8 = 0xe6
+public struct INC {
+    public struct ZeroPage: ZeroPageMode, Incrementer {
+        public static var opcode: UInt8 = 0xe6
     }
 
-    struct ZeroPageX: ZeroPageXMode, Incrementer {
-        static var opcode: UInt8 = 0xf6
+    public struct ZeroPageX: ZeroPageXMode, Incrementer {
+        public static var opcode: UInt8 = 0xf6
     }
 
-    struct Absolute: AbsoluteMode, Incrementer {
-        static var opcode: UInt8 = 0xee
+    public struct Absolute: AbsoluteMode, Incrementer {
+        public static var opcode: UInt8 = 0xee
     }
 
-    struct AbsoluteX: AbsoluteXMode, Incrementer {
-        static var opcode: UInt8 = 0xfe
+    public struct AbsoluteX: AbsoluteXMode, Incrementer {
+        public static var opcode: UInt8 = 0xfe
     }
 }
 

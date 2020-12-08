@@ -22,16 +22,18 @@ class ResetTests : XCTestCase, InstructionInterceptor {
     }
 
     func testReset() throws {
-        processor.memory[0x00] = LDX.Immediate.opcode
-        processor.memory[0x01] = 0xff
-        processor.memory[0x02] = DEX.opcode
-        processor.memory[0x03] = BNE.opcode
-        processor.memory[0x04] = 0xfd
+        processor.memory[0x00] = CLI.opcode
+        processor.memory[0x01] = LDX.Immediate.opcode
+        processor.memory[0x02] = 0xff
+        processor.memory[0x03] = DEX.opcode
+        processor.memory[0x04] = BNE.opcode
+        processor.memory[0x05] = 0xfd
         processor.memory[0x100] = BRK.opcode
 
         processor.memory.writeWord(address: 0xfffc, value: 0)
         try! processor.start()
         XCTAssertEqual(processor.pc, 0x101)
+        XCTAssertTrue(processor.status[.InterruptDisable])
     }
 
     static var allTests = [

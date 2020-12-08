@@ -13,6 +13,17 @@ public class Processor {
         public let opcode: UInt8
     }
 
+    public var a: UInt8 { registers.a }
+    public var x: UInt8 { registers.x }
+    public var y: UInt8 { registers.y }
+    public var sp: UInt8 { registers.sp }
+    public var pc: UInt16 { registers.pc }
+    public var memory: Memory { _memory }
+    public let status: ProcessorStatus
+    
+    // Called when BRK encountered. Return true to stop execution.
+    public var brkHandler: ((_ address: UInt16, _ processor: Processor) -> Bool)?
+    
     private let registers = Registers()
     private let _memory: Memory
     private var instructions = [Instruction.Type?](repeating: nil, count: 256)
@@ -21,17 +32,6 @@ public class Processor {
     private let executor: Executor
     private var doReset = false
 
-    public var a: UInt8 { registers.a }
-    public var x: UInt8 { registers.x }
-    public var y: UInt8 { registers.y }
-    public var sp: UInt8 { registers.sp }
-    public var pc: UInt16 { registers.pc }
-    public var memory: Memory { _memory }
-
-    // Called when BRK encountered. Return true to stop execution.
-    public var brkHandler: ((_ address: UInt16, _ processor: Processor) -> Bool)?
-
-    public let status: ProcessorStatus
     public init(memory: Memory, instructions: InstructionSet.Type? = Instructions6502.self) {
         _memory = memory
         executor = Executor(memory: _memory, registers: registers)
@@ -63,11 +63,6 @@ public class Processor {
         interceptors.append(i)
     }
 
-    public func execute(start: UInt16) throws {
-        registers.pc = start
-        try execute()
-    }
-
     public func reset() {
         doReset = true
     }
@@ -78,7 +73,8 @@ public class Processor {
         doReset = false
     }
 
-    private func execute() throws {
+    public func start() throws {
+        registers.pc = memory.readWord(0xfffc)
         while (true) {
             if doReset {
                 handleReset()

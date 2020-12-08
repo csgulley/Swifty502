@@ -29,7 +29,8 @@ class ResetTests : XCTestCase, InstructionInterceptor {
         processor.memory[0x04] = 0xfd
         processor.memory[0x100] = BRK.opcode
 
-        try! processor.execute(start: 0x00)
+        processor.memory.writeWord(address: 0xfffc, value: 0)
+        try! processor.start()
         XCTAssertEqual(processor.pc, 0x101)
     }
 

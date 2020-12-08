@@ -15,7 +15,8 @@ class UnknownInstructionTests: XCTestCase {
     func testUnknownInstruction() throws {
         processor.memory[0] = 0x22
 
-        XCTAssertThrowsError(try processor.execute(start: 0)) { error in
+        processor.memory.writeWord(address: 0xfffc, value: 0)
+        XCTAssertThrowsError(try processor.start()) { error in
             XCTAssert(error is Processor.UnknownInstruction)
         }
     }

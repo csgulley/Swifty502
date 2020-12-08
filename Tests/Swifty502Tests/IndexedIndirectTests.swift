@@ -25,7 +25,8 @@ class IndexedIndirectTests: XCTestCase {
         processor.memory[0x1f] = 0x77
         processor.memory[0x7788] = 0x55
 
-        try! processor.execute(start: 0)
+        processor.memory.writeWord(address: 0xfffc, value: 0)
+        try! processor.start()
         XCTAssertEqual(processor.a, 0x55)
     }
 

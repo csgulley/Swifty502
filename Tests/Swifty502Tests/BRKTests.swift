@@ -34,7 +34,8 @@ class BRKTests: XCTestCase {
         processor.memory[0xfffe] = 0x33
         processor.memory[0xffff] = 0x22
 
-        try! processor.execute(start: 0)
+        processor.memory.writeWord(address: 0xfffc, value: 0)
+        try! processor.start()
         XCTAssertEqual(processor.a, 0x33)
         XCTAssertEqual(processor.pc, 0x2236)
     }

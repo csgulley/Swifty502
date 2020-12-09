@@ -27,9 +27,13 @@ class BRKTests: XCTestCase {
         processor.memory[1] = 0xaa
         processor.memory[2] = BRK.opcode
 
-        processor.memory[0x2233] = LDA.Immediate.opcode
-        processor.memory[0x2234] = 0x33
-        processor.memory[0x2235] = BRK.opcode
+        processor.memory[0x2233] = PLA.opcode
+        processor.memory[0x2234] = PHA.opcode
+        processor.memory[0x2235] = STA.ZeroPage.opcode
+        processor.memory[0x2236] = 0x40
+        processor.memory[0x2237] = LDA.Immediate.opcode
+        processor.memory[0x2238] = 0x33
+        processor.memory[0x2239] = BRK.opcode
 
         processor.memory[0xfffe] = 0x33
         processor.memory[0xffff] = 0x22
@@ -37,7 +41,8 @@ class BRKTests: XCTestCase {
         processor.memory.writeWord(address: 0xfffc, value: 0)
         try! processor.start()
         XCTAssertEqual(processor.a, 0x33)
-        XCTAssertEqual(processor.pc, 0x2236)
+        XCTAssertEqual(processor.pc, 0x223a)
+        XCTAssertTrue(processor.memory[0x40] & 0x10 > 0)
     }
 
     static var allTests = [

@@ -25,13 +25,22 @@ final public class Processor {
     // Called when BRK encountered. Return true to stop execution.
     public var brkHandler: ((_ address: UInt16, _ processor: Processor) -> Bool)?
     
+    /**
+     Set true for active. It will remain active until set to false.
+     */
+    public var irq: Bool {
+        get { interruptRequested.load(ordering: .relaxed) }
+        set(newValue) { interruptRequested.store(newValue, ordering: .relaxed) }
+    }
+    
     private let registers = Registers()
     private let _memory: Memory
     private var instructions = [Instruction.Type?](repeating: nil, count: 256)
     private let stack: Stack
     private var interceptors = [InstructionInterceptor]()
     private let executor: Executor
-    private var _reset = ManagedAtomic<Bool>(false)
+    private var resetRequested = ManagedAtomic<Bool>(false)
+    private var interruptRequested = ManagedAtomic<Bool>(false)
 
     public init(memory: Memory, instructions: InstructionSet.Type? = Instructions6502.self) {
         _memory = memory
@@ -64,21 +73,35 @@ final public class Processor {
         interceptors.append(i)
     }
 
+    /*
+     A reset request is stored until the processor can handle it and then automatically cleared.
+     */
     public func reset() {
-        _reset.store(true, ordering: .relaxed)
+        resetRequested.store(true, ordering: .relaxed)
     }
 
     private func handleReset() {
         registers.status[.InterruptDisable] = true
         registers.pc = memory.readWord(0xfffc)
-        _reset.store(false, ordering: .relaxed)
+        resetRequested.store(false, ordering: .relaxed)
+    }
+
+    private func handleInterrupt() {
+        stack.pushWord(registers.pc)
+        stack.pushByte(registers.status.statusByte & 0xef)
+        registers.status[.InterruptDisable] = true
+        registers.pc = memory.readWord(0xfffe)
     }
 
     public func start() throws {
         registers.pc = memory.readWord(0xfffc)
         while (true) {
-            if _reset.load(ordering: .relaxed) {
+            if resetRequested.load(ordering: .relaxed) {
                 handleReset()
+            }
+
+            if interruptRequested.load(ordering: .relaxed) {
+                handleInterrupt()
             }
 
             let opcode = executor.nextByte(registers)

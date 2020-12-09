@@ -36,7 +36,7 @@ class InstructionTracer: InstructionInterceptor {
     }
 
     func onInstruction(address: UInt16, instruction: Instruction.Type, processor: Processor) {
-        let operand = getOperand(address: address, instruction: instruction, memory: memory)
+        let operand = getOperand(address: address, instruction: instruction, memory: processor.memory)
         let formattedAddress = String(format: "%04x", address)
         let formattedOperand = formatOperand(operand: operand, addressMode: instruction.addressMode)
         print("\(formattedAddress) \(instruction.mnemonic) \(formattedOperand)")

@@ -100,7 +100,7 @@ final public class Processor {
                 handleReset()
             }
 
-            if interruptRequested.load(ordering: .relaxed) {
+            if !registers.status[.InterruptDisable] && interruptRequested.load(ordering: .relaxed) {
                 handleInterrupt()
             }
 

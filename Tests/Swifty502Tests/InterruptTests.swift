@@ -116,9 +116,46 @@ class InterruptTests : XCTestCase {
         
         XCTAssertEqual(processor.x, 2)
     }
+    
+    func testDisabled() throws {
+        processor.memory[0x300] = SEI.opcode
+        processor.memory[0x301] = LDA.Immediate.opcode
+        processor.memory[0x302] = 0x00
+        processor.memory[0x303] = CLV.opcode
+        processor.memory[0x304] = CLD.opcode
+        processor.memory[0x305] = CLC.opcode
+        processor.memory[0x306] = NOP.opcode
+        processor.memory[0x307] = BRK.opcode
+        processor.memory.writeWord(address: 0xfffc, value: 0x300)
+        processor.memory.writeWord(address: 0xfffe, value: 0x500)
+        
+        processor.memory[0x500] = LDA.Immediate.opcode
+        processor.memory[0x501] = 0x22
+        processor.memory[0x502] = STA.ZeroPage.opcode
+        processor.memory[0x503] = 0x40
+        processor.memory[0x504] = RTI.opcode
+        
+        
+        processor.brkHandler = { _,_ in true }
+        
+        struct Interceptor: InstructionInterceptor {
+            func onInstruction(address: UInt16, instruction: Instruction.Type, processor: Processor) {
+                if address == 0x306 {
+                    processor.irq = true
+                }
+            }
+        }
+     
+        processor.addDebugInterceptor(Interceptor())
+        
+        processor.memory[0x40] = 0x00
+        try! processor.start()
+        XCTAssertEqual(processor.memory[0x40], 0x00)
+    }
 
     static var allTests = [
         ("testSingleInterrupt", testSingleInterrupt),
-        ("testMultipleInterrupts", testMultipleInterrupts)
+        ("testMultipleInterrupts", testMultipleInterrupts),
+        ("testDisabled", testDisabled)
     ]
 }

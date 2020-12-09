@@ -26,7 +26,7 @@ final public class Processor {
     public var brkHandler: ((_ address: UInt16, _ processor: Processor) -> Bool)?
     
     /**
-     Set true for active. It will remain active until set to false.
+     Set true for for active. Will not be automatically reset.
      */
     public var irq: Bool {
         get { interruptRequested.load(ordering: .relaxed) }
@@ -41,6 +41,7 @@ final public class Processor {
     private let executor: Executor
     private var resetRequested = ManagedAtomic<Bool>(false)
     private var interruptRequested = ManagedAtomic<Bool>(false)
+    private var nonMaskableInterruptRequested = ManagedAtomic<Bool>(false)
 
     public init(memory: Memory, instructions: InstructionSet.Type? = Instructions6502.self) {
         _memory = memory
@@ -79,6 +80,10 @@ final public class Processor {
     public func reset() {
         resetRequested.store(true, ordering: .relaxed)
     }
+    
+    public func nonMaskableInterrupt() {
+        nonMaskableInterruptRequested.store(true, ordering: .relaxed)
+    }
 
     private func handleReset() {
         registers.status[.InterruptDisable] = true
@@ -92,12 +97,24 @@ final public class Processor {
         registers.status[.InterruptDisable] = true
         registers.pc = memory.readWord(0xfffe)
     }
+    
+    private func handleNonMaskableInterrupt() {
+        stack.pushWord(registers.pc)
+        stack.pushByte(registers.status.statusByte & 0xef)
+        registers.status[.InterruptDisable] = true
+        registers.pc = memory.readWord(0xfffa)
+        nonMaskableInterruptRequested.store(false, ordering: .relaxed)
+    }
 
     public func start() throws {
         registers.pc = memory.readWord(0xfffc)
         while (true) {
             if resetRequested.load(ordering: .relaxed) {
                 handleReset()
+            }
+            
+            if nonMaskableInterruptRequested.load(ordering: .relaxed) {
+                handleNonMaskableInterrupt()
             }
 
             if !registers.status[.InterruptDisable] && interruptRequested.load(ordering: .relaxed) {

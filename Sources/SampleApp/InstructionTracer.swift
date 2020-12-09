@@ -4,14 +4,21 @@ import Swifty502
  modes are implemented.
  */
 class InstructionTracer: InstructionInterceptor {
-    private func formatOperand(operand: UInt16, addressMode: AddressMode) -> String {
+    private func formatOperand(address: UInt16, instruction: Instruction.Type, memory: Memory) -> String {
         let formatted: String
-        switch addressMode {
-        case .Absolute, .Relative:
+        switch instruction.addressMode {
+        case .Absolute:
+            let operand = memory.readWord(address)
+            formatted = String(format: "$%02x", operand)
+        case .Relative:
+            let offset = memory[address + 1]
+            let operand = UInt16(Int(Int8(bitPattern: offset)) + Int(address + 2))
             formatted = String(format: "$%04x", operand)
         case .Immediate:
+            let operand = UInt16(memory[address + 1])
             formatted = String(format: "#$%02x", operand)
         case .ZeroPage:
+            let operand = UInt16(memory[address + 1])
             formatted = String(format: "$%02x", operand)
         default:
             formatted = ""
@@ -19,26 +26,9 @@ class InstructionTracer: InstructionInterceptor {
         return formatted
     }
 
-    private func getOperand(address: UInt16, instruction: Instruction.Type, memory: Memory) -> UInt16 {
-        let operand: UInt16
-        switch instruction.addressMode {
-        case .Absolute:
-            operand = memory.readWord(address)
-        case .Immediate, .ZeroPage:
-            operand = UInt16(memory[address + 1])
-        case .Relative:
-            let offset = memory[address + 1]
-            operand = UInt16(Int(Int8(bitPattern: offset)) + Int(address + 2))
-        default:
-            operand = 0
-        }
-        return operand
-    }
-
     func onInstruction(address: UInt16, instruction: Instruction.Type, processor: Processor) {
-        let operand = getOperand(address: address, instruction: instruction, memory: processor.memory)
         let formattedAddress = String(format: "%04x", address)
-        let formattedOperand = formatOperand(operand: operand, addressMode: instruction.addressMode)
+        let formattedOperand = formatOperand(address: address, instruction: instruction, memory: processor.memory)
         print("\(formattedAddress) \(instruction.mnemonic) \(formattedOperand)")
     }
 }

@@ -24,7 +24,7 @@ struct AddOperator {
         binaryAdd(value: ~value, registers: registers)
     }
 
-    // Borrowed from KEGS indirectly via apple2js
+    // Borrowed from KEGS indirectly via apple2js and modified for NMOS 6502 behavior
     static func decimalSubtract(value: UInt8, registers: Registers) {
         let term1 = Int(registers.a)
         let term2 = Int(~value)
@@ -46,11 +46,13 @@ struct AddOperator {
         let byteDifference = UInt8(difference & 0xff)
         registers.status[.Overflow] = overflow
         registers.status[.Carry] = difference > 0xff
-        registers.status.updateFlags(byteDifference, .Negative, .Zero)
+        let binaryResult = UInt8((term1 + term2 + carry) & 0xff)
+        registers.status[.Zero] = binaryResult == 0
+        registers.status[.Negative] = (binaryResult & 0x80) > 0
         registers.a = byteDifference
     }
 
-    // Borrowed from KEGS indirectly via apple2js
+    // Borrowed from KEGS indirectly via apple2js and modified for NMOS 6502 behavior
     static func decimalAdd(value: UInt8, registers: Registers) {
         let addend1 = Int(registers.a)
         let addend2 = Int(value)
@@ -60,6 +62,7 @@ struct AddOperator {
             sum = (sum - 0x0a) | 0x10
         }
         sum = sum + (addend1 & 0xf0) + (addend2 & 0xf0)
+        registers.status[.Negative] = (sum & 0x80) > 0
         let overflow: Bool
         if (((addend1 ^ addend2) & 0x80) > 0) {
             overflow = false
@@ -72,7 +75,7 @@ struct AddOperator {
         let byteSum = UInt8(sum & 0xff)
         registers.status[.Overflow] = overflow
         registers.status[.Carry] = sum > 0xff
-        registers.status.updateFlags(byteSum, .Negative, .Zero)
+        registers.status[.Zero] = UInt8((addend1 + addend2 + carry) & 0xff) == 0
         registers.a = byteSum
     }
 

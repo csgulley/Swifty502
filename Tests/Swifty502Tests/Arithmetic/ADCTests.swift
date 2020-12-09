@@ -280,6 +280,14 @@ class ADCTests: NoProcessorTestCase {
         execute(a: 0x03, negative: false, zero: false, carry: false, overflow: false, instruction: ADC.IndirectY.self, operands: 0x30)
     }
 
+    // Check that undocumented flags work similarly to NMOS 6502 (see http://www.6502.org/tutorials/decimal_mode.html#4.1)
+    func testDecimal() throws {
+        registers.status[.Decimal] = true
+        registers.status[.Carry] = true
+        registers.a = 0x99
+        execute(a: 0x00, negative: true, zero: false, carry: true, overflow: false, instruction: ADC.Immediate.self, operands: 0x00)
+    }
+
     static var allTests = [
         ("testImmediate", testImmediate),
         ("testZeroPage", testZeroPage),
@@ -288,7 +296,8 @@ class ADCTests: NoProcessorTestCase {
         ("testAbsoluteX", testAbsoluteX),
         ("testAbsoluteY", testAbsoluteY),
         ("testIndirectX", testIndirectX),
-        ("testIndirectY", testIndirectY)
+        ("testIndirectY", testIndirectY),
+        ("testDecimal", testDecimal)
     ]
 }
 

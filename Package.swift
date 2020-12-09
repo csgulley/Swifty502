@@ -30,7 +30,9 @@ let package = Package(
             dependencies: ["Swifty502"]),
         .target(
             name: "Klaus6502Tests",
-            dependencies: ["Swifty502"]),
+            dependencies: ["Swifty502"],
+            exclude: ["README.md",
+                      "6502_functional_test.ca65", "functional.cfg", "6502_decimal_test.ca65", "decimal.cfg"]),
         .testTarget(
             name: "Swifty502Tests",
             dependencies: ["Swifty502"]),

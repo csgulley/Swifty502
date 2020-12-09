@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Atomics
 
 final public class Processor {
     public struct UnknownInstruction: Error {
@@ -30,7 +31,7 @@ final public class Processor {
     private let stack: Stack
     private var interceptors = [InstructionInterceptor]()
     private let executor: Executor
-    private var doReset = false
+    private var _reset = ManagedAtomic<Bool>(false)
 
     public init(memory: Memory, instructions: InstructionSet.Type? = Instructions6502.self) {
         _memory = memory
@@ -64,19 +65,19 @@ final public class Processor {
     }
 
     public func reset() {
-        doReset = true
+        _reset.store(true, ordering: .relaxed)
     }
 
     private func handleReset() {
         registers.status[.InterruptDisable] = true
         registers.pc = memory.readWord(0xfffc)
-        doReset = false
+        _reset.store(false, ordering: .relaxed)
     }
 
     public func start() throws {
         registers.pc = memory.readWord(0xfffc)
         while (true) {
-            if doReset {
+            if _reset.load(ordering: .relaxed) {
                 handleReset()
             }
 

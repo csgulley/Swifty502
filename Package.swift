@@ -15,12 +15,16 @@ let package = Package(
             name: "Klaus6502Tests",
             targets: ["Klaus6502Tests"])
     ],
-    dependencies: [
+    dependencies: [.package(
+        url: "https://github.com/apple/swift-atomics.git",
+        .upToNextMinor(from:"0.0.2"))
     ],
     targets: [
         .target(
             name: "Swifty502",
-            dependencies: []),
+            dependencies: [
+                .product(name: "Atomics", package: "swift-atomics")
+            ]),
         .target(
             name: "SampleApp",
             dependencies: ["Swifty502"]),

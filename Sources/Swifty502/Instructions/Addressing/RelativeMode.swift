@@ -6,7 +6,7 @@
 //
 
 public protocol RelativeMode: Instruction {
-    static func execute(offset: Int8, memory: Memory, registers: Registers, stack: Stack)
+    static func execute(offset: Int8, memory: Memory, registers: Registers, stack: Stack) -> Int
 }
 
 extension RelativeMode {
@@ -14,8 +14,8 @@ extension RelativeMode {
         .Relative
     }
 
-    public static func execute(memory: Memory, registers: Registers, stack: Stack, executor: Executor) {
+    public static func execute(memory: Memory, registers: Registers, stack: Stack, executor: Executor) -> Int {
         let offset = executor.nextByte(registers)
-        execute(offset: Int8(bitPattern: offset), memory: memory, registers: registers, stack: stack)
+        return execute(offset: Int8(bitPattern: offset), memory: memory, registers: registers, stack: stack)
     }
 }

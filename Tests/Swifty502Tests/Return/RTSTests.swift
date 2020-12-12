@@ -9,7 +9,7 @@ class RTSTests: NoProcessorTestCase {
     func testRTS() {
         stack.pushByte(0xaa)
         stack.pushByte(0xbb)
-        RTS.execute(memory: memory, registers: registers, stack: stack, executor: executor)
+        let _ = RTS.execute(memory: memory, registers: registers, stack: stack, executor: executor)
         XCTAssertEqual(registers.pc, 0xaabc)
     }
 

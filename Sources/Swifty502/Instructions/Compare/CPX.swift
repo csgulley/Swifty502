@@ -19,13 +19,16 @@ extension XComparer {
 public struct CPX {
     public struct Immediate: ImmediateMode, ImmediateRegisterComparer, XComparer {
         public static var opcode: UInt8 = 0xe0
+        static func cycles() -> Int { 2 }
     }
 
     public struct ZeroPage: ZeroPageMode, IndirectRegisterComparer, XComparer {
         public static var opcode: UInt8 = 0xe4
+        static func cycles() -> Int { 3 }
     }
 
     public struct Absolute: AbsoluteMode, IndirectRegisterComparer, XComparer {
         public static var opcode: UInt8 = 0xec
+        static func cycles() -> Int { 4 }
     }
 }

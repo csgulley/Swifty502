@@ -10,7 +10,7 @@ class STATests: NoProcessorTestCase {
         for (i, op) in operands.enumerated() {
             memory[registers.pc + UInt16(i)] = op
         }
-        instruction.execute(memory: memory, registers: registers, stack: stack, executor: executor)
+        let _ = instruction.execute(memory: memory, registers: registers, stack: stack, executor: executor)
         XCTAssertEqual(memory[address], value)
     }
 

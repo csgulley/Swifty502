@@ -8,7 +8,7 @@ import XCTest
 class TXSTests: NoProcessorTestCase {
     func testTXS() throws {
         registers.x = 0x22
-        TXS.execute(memory: memory, registers: registers, stack: stack, executor: executor)
+        let _ = TXS.execute(memory: memory, registers: registers, stack: stack, executor: executor)
         XCTAssertEqual(registers.sp, 0x22)
     }
 

@@ -9,8 +9,9 @@ protocol ImmediateRegisterLoader: RegisterLoader {
 }
 
 extension ImmediateRegisterLoader {
-    public static func execute(operand: UInt8, memory: Memory, registers: Registers, stack: Stack) {
+    public static func execute(operand: UInt8, memory: Memory, registers: Registers, stack: Stack) -> Int {
         setValue(value: operand, registers: registers)
         updateFlags(value: operand, status: registers.status)
+        return cycles()
     }
 }

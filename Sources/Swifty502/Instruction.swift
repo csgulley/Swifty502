@@ -9,5 +9,5 @@ public protocol Instruction {
     static var opcode: UInt8 { get }
     static var mnemonic: String { get }
     static var addressMode: AddressMode { get }
-    static func execute(memory: Memory, registers: Registers, stack: Stack, executor: Executor)
+    static func execute(memory: Memory, registers: Registers, stack: Stack, executor: Executor) -> Int
 }

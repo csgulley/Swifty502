@@ -9,7 +9,8 @@ public struct SEI: ImpliedMode {
     public static var opcode: UInt8 = 0x78
     public static var mnemonic = "SEI"
 
-    public static func execute(memory: Memory, registers: Registers, stack: Stack, executor: Executor) {
+    public static func execute(memory: Memory, registers: Registers, stack: Stack, executor: Executor) -> Int {
         registers.status[.InterruptDisable] = true
+        return 2
     }
 }

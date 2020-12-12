@@ -6,7 +6,7 @@
 //
 
 public protocol AbsoluteYMode: Instruction {
-    static func execute(operand: UInt16, memory: Memory, registers: Registers, stack: Stack)
+    static func execute(operand: UInt16, memory: Memory, registers: Registers, stack: Stack, crossedPageBoundary: Bool) -> Int
 }
 
 extension AbsoluteYMode {
@@ -14,8 +14,10 @@ extension AbsoluteYMode {
         .AbsoluteY
     }
 
-    public static func execute(memory: Memory, registers: Registers, stack: Stack, executor: Executor) {
-        let operand = executor.nextWord(registers) + UInt16(registers.y)
-        execute(operand: operand, memory: memory, registers: registers, stack: stack)
+    public static func execute(memory: Memory, registers: Registers, stack: Stack, executor: Executor) -> Int {
+        let base = executor.nextWord(registers)
+        let operand = base + UInt16(registers.y)
+        let crossedPageBoundary = (base & 0xff00) != (operand & 0xff00)
+        return execute(operand: operand, memory: memory, registers: registers, stack: stack, crossedPageBoundary: crossedPageBoundary)
     }
 }

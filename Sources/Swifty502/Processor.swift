@@ -9,6 +9,12 @@ import Foundation
 import Atomics
 
 final public class Processor {
+    // Run frequently enough for 60 fps display
+    private static let QuantumInterval = 1.0 / 60
+    
+    // How many cycles we'd get per quantum interval running at 1 MHz
+    private static let QuantumCycles = Int(1_000_000.0 * QuantumInterval)
+    
     public struct UnknownInstruction: Error {
         public let address: UInt16
         public let opcode: UInt8
@@ -21,6 +27,10 @@ final public class Processor {
     public var pc: UInt16 { registers.pc }
     public var memory: Memory { _memory }
     public let status: ProcessorStatus
+
+    // When true we try to emulate a 1Mhz clock. When false instructions are executed
+    // as fast as possible
+    public var throttleExecution = true
     
     // Called when BRK encountered. Return true to stop execution.
     public var brkHandler: ((_ address: UInt16, _ processor: Processor) -> Bool)?
@@ -42,6 +52,7 @@ final public class Processor {
     private var resetRequested = ManagedAtomic<Bool>(false)
     private var interruptRequested = ManagedAtomic<Bool>(false)
     private var nonMaskableInterruptRequested = ManagedAtomic<Bool>(false)
+    private var quantumStart: TimeInterval = 0
 
     public init(memory: Memory, instructions: InstructionSet.Type? = Instructions6502.self) {
         _memory = memory
@@ -62,7 +73,6 @@ final public class Processor {
         }
 
         status = ReadOnlyStatus(registers.status)
-        
         instructions?.instructions.forEach { addInstruction($0) }
     }
 
@@ -106,7 +116,18 @@ final public class Processor {
         nonMaskableInterruptRequested.store(false, ordering: .relaxed)
     }
 
+    private func throttle() {
+        let duration = ProcessInfo.processInfo.systemUptime - quantumStart
+        let remaining = Processor.QuantumInterval  - duration
+        if remaining > 0 {
+            Thread.sleep(forTimeInterval: remaining)
+        }
+        quantumStart = ProcessInfo.processInfo.systemUptime
+    }
+
     public func start() throws {
+        var cycles = 0
+        quantumStart = ProcessInfo.processInfo.systemUptime
         registers.pc = memory.readWord(0xfffc)
         while (true) {
             if resetRequested.load(ordering: .relaxed) {
@@ -134,7 +155,11 @@ final public class Processor {
                 return
             }
 
-            instruction.execute(memory: memory, registers: registers, stack: stack, executor: executor)
+            cycles += instruction.execute(memory: memory, registers: registers, stack: stack, executor: executor)
+            if (cycles >= Processor.QuantumCycles) {
+                if throttleExecution { throttle() }
+                cycles = 0
+            }
         }
     }
 }

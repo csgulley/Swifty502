@@ -9,7 +9,8 @@ public struct TXS: ImpliedMode {
     public static var opcode: UInt8 = 0x9a
     public static var mnemonic = "TXS"
 
-    public static func execute(memory: Memory, registers: Registers, stack: Stack, executor: Executor) {
+    public static func execute(memory: Memory, registers: Registers, stack: Stack, executor: Executor) -> Int {
         registers.sp = registers.x
+        return 2
     }
 }

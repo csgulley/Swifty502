@@ -9,7 +9,8 @@ public struct CLD: ImpliedMode {
     public static var opcode: UInt8 = 0xD8
     public static var mnemonic = "CLD"
 
-    public static func execute(memory: Memory, registers: Registers, stack: Stack, executor: Executor) {
+    public static func execute(memory: Memory, registers: Registers, stack: Stack, executor: Executor) -> Int {
         registers.status[.Decimal] = false
+        return 2
     }
 }

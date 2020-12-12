@@ -13,7 +13,7 @@ class PHPTests: NoProcessorTestCase {
         registers.status[.InterruptDisable] = true
         registers.status[.Zero] = false
         registers.status[.Carry] = true
-        PHP.execute(memory: memory, registers: registers, stack: stack, executor: executor)
+        let _ = PHP.execute(memory: memory, registers: registers, stack: stack, executor: executor)
         let val = stack.popByte()
         XCTAssertEqual(val, 0xb5)
     }

@@ -6,7 +6,7 @@
 //
 
 public protocol ImmediateMode: Instruction {
-    static func execute(operand: UInt8, memory: Memory, registers: Registers, stack: Stack)
+    static func execute(operand: UInt8, memory: Memory, registers: Registers, stack: Stack) -> Int
 }
 
 extension ImmediateMode {
@@ -14,8 +14,8 @@ extension ImmediateMode {
         .Immediate
     }
 
-    public static func execute(memory: Memory, registers: Registers, stack: Stack, executor: Executor) {
+    public static func execute(memory: Memory, registers: Registers, stack: Stack, executor: Executor) -> Int {
         let operand = executor.nextByte(registers)
-        execute(operand: operand, memory: memory, registers: registers, stack: stack)
+        return execute(operand: operand, memory: memory, registers: registers, stack: stack)
     }
 }

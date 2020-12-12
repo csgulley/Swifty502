@@ -7,7 +7,7 @@ import XCTest
 
 class TXATests: NoProcessorTestCase {
     func execute(value: UInt8, zero: Bool, negative: Bool, instruction: Instruction.Type) {
-        instruction.execute(memory: memory, registers: registers, stack: stack, executor: executor)
+        let _ = instruction.execute(memory: memory, registers: registers, stack: stack, executor: executor)
         XCTAssertEqual(registers.a, value)
         XCTAssertEqual(registers.status[.Zero], zero)
         XCTAssertEqual(registers.status[.Negative], negative)

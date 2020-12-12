@@ -48,6 +48,7 @@ func runFunctional() {
 
     let terminationCheck = TerminationCheck()
     let processor = Processor(memory: memory)
+    processor.throttleExecution = false
     processor.addDebugInterceptor(terminationCheck)
 
     // Test needs to start at 0x400 so we replace the value the test stores in 0xfffc with that value
@@ -87,6 +88,7 @@ func runDecimal() {
     }
 
     let processor = Processor(memory: memory)
+    processor.throttleExecution = false
 //    processor.addDebugInterceptor(TestTracer())
     processor.memory.writeWord(address: 0xfffc, value: 0x200)
     processor.brkHandler = { _,_ in

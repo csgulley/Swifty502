@@ -7,6 +7,7 @@
 
 protocol RegisterLoader {
     static func setValue(value: UInt8, registers: Registers)
+    static func cycles() -> Int
 }
 
 extension RegisterLoader {

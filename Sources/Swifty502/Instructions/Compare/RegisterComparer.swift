@@ -7,6 +7,7 @@
 
 protocol RegisterComparer {
     static func getRegisterValue(_ registers: Registers) -> UInt8
+    static func cycles() -> Int
 }
 
 extension RegisterComparer {

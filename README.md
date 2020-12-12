@@ -40,8 +40,6 @@ Swifty6502 is part of a basic Apple IIe emulator that runs well enough to load a
 ## Performance
 Performance has not been a high development priority so far and not much benchmarking has been done. On my MacBook Pro it does around 8 MIPS running the Klaus Dormann tests. If anyone does any performance testing I'd be interested in the results.
 
-Swifty502 does not currently try to emulate the performance of the original processor. In other words, it sits in a loop running instructions as fast as it can with no attempt to model a clock. This could be a future enhancement.
-
 ## Licensing
 Swifty502 is licensed under GPLv3. 
 

@@ -9,9 +9,10 @@ public struct JSR: AbsoluteMode {
     public static var opcode: UInt8 = 0x20
     public static var mnemonic = "JSR"
 
-    public static func execute(operand: UInt16, memory: Memory, registers: Registers, stack: Stack) {
+    public static func execute(operand: UInt16, memory: Memory, registers: Registers, stack: Stack) -> Int {
         stack.pushWord(registers.pc - 1)
         registers.pc = operand
+        return 6
     }
 }
 

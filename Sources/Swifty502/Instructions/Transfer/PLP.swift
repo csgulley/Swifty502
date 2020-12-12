@@ -9,7 +9,8 @@ public struct PLP: ImpliedMode {
     public static var opcode: UInt8 = 0x28
     public static var mnemonic = "PLP"
 
-    public static func execute(memory: Memory, registers: Registers, stack: Stack, executor: Executor) {
+    public static func execute(memory: Memory, registers: Registers, stack: Stack, executor: Executor) -> Int {
         registers.status.statusByte = stack.popByte()
+        return 4
     }
 }

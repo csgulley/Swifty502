@@ -19,7 +19,7 @@ class RTITests: NoProcessorTestCase {
         registers.pc = 0x1000
         registers.status.statusByte = ~registers.status.statusByte
 
-        RTI.execute(memory: memory, registers: registers, stack: stack, executor: executor)
+        let _ = RTI.execute(memory: memory, registers: registers, stack: stack, executor: executor)
         XCTAssertEqual(registers.status.statusByte, 0xB1)
         XCTAssertEqual(registers.pc, 0x1040)
     }

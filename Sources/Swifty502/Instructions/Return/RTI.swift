@@ -9,8 +9,9 @@ public struct RTI: ImpliedMode {
     public static var opcode: UInt8 = 0x40
     public static var mnemonic = "RTI"
 
-    public static func execute(memory: Memory, registers: Registers, stack: Stack, executor: Executor) {
+    public static func execute(memory: Memory, registers: Registers, stack: Stack, executor: Executor) -> Int {
         registers.status.statusByte = stack.popByte()
         registers.pc = stack.popWord()
+        return 6
     }
 }

@@ -19,14 +19,17 @@ extension YComparer {
 public struct CPY {
     public struct Immediate: ImmediateMode, ImmediateRegisterComparer, YComparer {
         public static var opcode: UInt8 = 0xc0
+        static func cycles() -> Int { 2 }
     }
 
     public struct ZeroPage: ZeroPageMode, IndirectRegisterComparer, YComparer {
         public static var opcode: UInt8 = 0xc4
+        static func cycles() -> Int { 3 }
     }
 
     public struct Absolute: AbsoluteMode, IndirectRegisterComparer, YComparer {
         public static var opcode: UInt8 = 0xcc
+        static func cycles() -> Int { 4 }
     }
 }
 

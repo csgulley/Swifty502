@@ -10,8 +10,9 @@ public struct JMP {
         public static var opcode: UInt8 = 0x4c
         public static var mnemonic = "JMP"
 
-        public static func execute(operand: UInt16, memory: Memory, registers: Registers, stack: Stack) {
+        public static func execute(operand: UInt16, memory: Memory, registers: Registers, stack: Stack) -> Int {
             registers.pc = operand
+            return 3
         }
     }
 
@@ -19,8 +20,9 @@ public struct JMP {
         public static var opcode: UInt8 = 0x6c
         public static var mnemonic = "JMP"
 
-        public static func execute(operand: UInt16, memory: Memory, registers: Registers, stack: Stack) {
+        public static func execute(operand: UInt16, memory: Memory, registers: Registers, stack: Stack) -> Int {
             registers.pc = memory.readWord(operand)
+            return 5
         }
     }
 }

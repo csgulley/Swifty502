@@ -8,7 +8,7 @@ import XCTest
 class PHATests: NoProcessorTestCase {
     func testPHA() {
         registers.a = 0xab
-        PHA.execute(memory: memory, registers: registers, stack: stack, executor: executor)
+        let _ = PHA.execute(memory: memory, registers: registers, stack: stack, executor: executor)
         XCTAssertEqual(stack.popByte(), 0xab)
     }
 

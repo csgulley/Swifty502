@@ -6,7 +6,7 @@
 //
 
 public protocol IndirectMode: Instruction {
-    static func execute(operand: UInt16, memory: Memory, registers: Registers, stack: Stack)
+    static func execute(operand: UInt16, memory: Memory, registers: Registers, stack: Stack) -> Int
 }
 
 extension IndirectMode {
@@ -14,8 +14,8 @@ extension IndirectMode {
         .Indirect
     }
 
-    public static func execute(memory: Memory, registers: Registers, stack: Stack, executor: Executor) {
+    public static func execute(memory: Memory, registers: Registers, stack: Stack, executor: Executor) -> Int {
         let operand = executor.nextWord(registers)
-        execute(operand: operand, memory: memory, registers: registers, stack: stack)
+        return execute(operand: operand, memory: memory, registers: registers, stack: stack)
     }
 }

@@ -9,7 +9,5 @@ public protocol ImpliedMode: Instruction {
 }
 
 extension ImpliedMode {
-    public static var addressMode: AddressMode {
-        .Implied
-    }
+    public static var addressMode: AddressMode { .Implied }
 }

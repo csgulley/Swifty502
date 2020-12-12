@@ -13,7 +13,7 @@ let package = Package(
   dependencies: [
     .package(
       url: "https://github.com/csgulley/Swifty502", 
-      from: "0.5.0"
+      from: "0.6.0"
     )
   ],
   targets: [

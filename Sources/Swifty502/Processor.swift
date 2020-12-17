@@ -13,7 +13,7 @@ final public class Processor {
     private static let QuantumInterval = 1.0 / 60
     
     // How many cycles we'd get per quantum interval running at 1 MHz
-    private static let QuantumCycles = Int(1_000_000.0 * QuantumInterval)
+    private static let QuantumCycles = Int(1_020_500.0 * QuantumInterval)
     
     public struct UnknownInstruction: Error {
         public let address: UInt16

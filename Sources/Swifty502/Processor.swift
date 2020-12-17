@@ -117,12 +117,15 @@ final public class Processor {
     }
 
     private func throttle() {
-        let duration = ProcessInfo.processInfo.systemUptime - quantumStart
+        let now = ProcessInfo.processInfo.systemUptime
+        let duration = now - quantumStart
         let remaining = Processor.QuantumInterval  - duration
         if remaining > 0 {
+            quantumStart = now + remaining
             Thread.sleep(forTimeInterval: remaining)
+        } else {
+            quantumStart = ProcessInfo.processInfo.systemUptime
         }
-        quantumStart = ProcessInfo.processInfo.systemUptime
     }
 
     public func start() throws {

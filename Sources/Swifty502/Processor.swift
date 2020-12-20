@@ -43,6 +43,8 @@ final public class Processor {
         set(newValue) { interruptRequested.store(newValue, ordering: .relaxed) }
     }
     
+    public var cycle: UInt { _cycle }
+    
     private let registers = Registers()
     private let _memory: Memory
     private var instructions = [Instruction.Type?](repeating: nil, count: 256)
@@ -53,6 +55,7 @@ final public class Processor {
     private var interruptRequested = ManagedAtomic<Bool>(false)
     private var nonMaskableInterruptRequested = ManagedAtomic<Bool>(false)
     private var quantumStart: TimeInterval = 0
+    private var _cycle: UInt = 0
 
     public init(memory: Memory, instructions: InstructionSet.Type? = Instructions6502.self) {
         _memory = memory
@@ -129,7 +132,7 @@ final public class Processor {
     }
 
     public func start() throws {
-        var cycles = 0
+        var startCycle: UInt = 0
         quantumStart = ProcessInfo.processInfo.systemUptime
         registers.pc = memory.readWord(0xfffc)
         while (true) {
@@ -158,10 +161,12 @@ final public class Processor {
                 return
             }
 
-            cycles += instruction.execute(memory: memory, registers: registers, stack: stack, executor: executor)
-            if (cycles >= Processor.QuantumCycles) {
+            let executionTime = instruction.execute(memory: memory, registers: registers, stack: stack, executor: executor)
+            _cycle &+= UInt(executionTime)
+            startCycle &+= UInt(executionTime)
+            if (startCycle >= Processor.QuantumCycles) {
                 if throttleExecution { throttle() }
-                cycles = 0
+                startCycle = 0
             }
         }
     }

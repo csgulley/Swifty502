@@ -49,6 +49,7 @@ public func allTests() -> [XCTestCaseEntry] {
         testCase(TXSTests.allTests),
         testCase(TYATests.allTests),
         testCase(InterruptTests.allTests),
+        testCase(CycleCountTests.allTests),
         testCase(NonMaskablenterruptTests.allTests)
     ]
 }
